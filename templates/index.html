@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OSINT Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>OSINT Keyword Search</h1>
+        <form method="POST">
+            <input type="text" name="keyword" placeholder="Enter keyword..." required>
+            <button type="submit">Search</button>
+        </form>
+
+        {% if results %}
+        <div class="results">
+            <h2>Results for "{{ keyword }}":</h2>
+            <ul>
+                {% for file, line in results %}
+                    <li><strong>{{ file }}</strong>: {{ line }}</li>
+                {% endfor %}
+            </ul>
+            <form action="/export" method="get">
+                <button type="submit">Export Results</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
